@@ -1,4 +1,5 @@
 const express = require('express');
+const userRouter = require('./routes/users');
 
 const app = express();
 
@@ -9,6 +10,8 @@ app.get('/', (req, res) => {
         message: "Hello, world!"
     });
 })
+
+app.use('/users', userRouter);
 
 app.listen(port, (err) => {
     if(err) console.log('[ERROR] Error in listening!');
