@@ -1,8 +1,22 @@
-POST http://localhost:3000/users
+POST http://localhost:3000/users/signup
 Content-Type: application/json
 
 {
-    "username": "pm27",
+    "username": "pm27_test",
+    "email": "pushkarm27_test@gmail.com",
+    "password": "lasan"
+}
+
+###
+GET http://localhost:3000/users/pm27
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzA1MjMxMCwiZXhwIjoxNjU3MDg4MzEwfQ.aNMLUnZ577qi41cmFaVrgqPVBgICoChLUazmpj1gXEs
+
+###
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
     "email": "pushkarm27@gmail.com",
     "password": "lasan"
 }
