@@ -3,14 +3,14 @@ Content-Type: application/json
 
 {
     "username": "pm27_test",
-    "email": "pushkarm27_test@gmail.com",
-    "password": "lasan"
+    "email": "push247_test@gmail.com",
+    "password": "hehe"
 }
 
 ###
-GET http://localhost:3000/users/pm27
+GET http://localhost:3000/users/pm27_test
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzA1MjMxMCwiZXhwIjoxNjU3MDg4MzEwfQ.aNMLUnZ577qi41cmFaVrgqPVBgICoChLUazmpj1gXEs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzM5NTcwMywiZXhwIjoxNjU3NDMxNzAzfQ.ohdrdmXU2xHnMx3tX5QhI7O_-A7mXHaniX7VJ6WwM8k
 
 ###
 POST http://localhost:3000/users/login

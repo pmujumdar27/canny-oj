@@ -1,28 +1,18 @@
 const jwt = require('jsonwebtoken');
+const authUtils = require('../helpers/jwtHelpers');
 
 function requireAuth (req, res, next) {
     try{
-        const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1];
-        if (token == null) {
-            res.status(401).json({
-                status: 'failure',
-                description: 'token missing'
-            })
+        const user_id = authUtils.get_user_id(req);
+        if (user_id) {
+            res.locals.user_id = user_id;
+            next();
         }
         else {
-            jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-                if(err) {
-                    res.status(403).json({
-                    status: 'failure',
-                    description: err
-                    })
-                }
-                else {
-                    res.locals.user = user;
-                    next();
-                }
-            })
+            res.status(401).json({
+                status: 'failure',
+                description: 'Invalid JWT Token'
+            });
         }
     }
     catch (ex) {

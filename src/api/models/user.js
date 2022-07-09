@@ -21,6 +21,24 @@ class User extends Model {
         return 'email';
     }
 
+    static get relationMappings() {
+        const Permission = require('./permission');
+        return {
+            permissions: {
+                relation: Model.ManyToManyRelation,
+                modelClass: Permission,
+                join: {
+                    from: 'users.id',
+                    through: {
+                        from: 'user_permissions.user_id',
+                        to: 'user_permissions.permission_id'
+                    },
+                    to: 'permissions.id'
+                }
+            }
+        }
+    }
+
     static get jsonSchema() {
         return {
             type: 'object',

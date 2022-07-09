@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const missing_keys = require('../helpers/object');
 const bcrypt = require('bcryptjs');
-const jwtTokens = require('../helpers/jwtHelpers');
+const jwtUtils = require('../helpers/jwtHelpers');
 
 async function check_request(req) {
     const required_keys = ['username', 'email', 'password'];
@@ -10,9 +10,13 @@ async function check_request(req) {
         return Error(`Required keys not found: ${missing.join(', ')}`);
     }
 
-    const [user] = await User.query().where('email', req.body.email);
-    if (user) {
-        return Error('User already exists');
+    const [email_user] = await User.query().where('email', req.body.email);
+    const [username_user] = await User.query().where('username', req.body.username);
+    if (email_user) {
+        return Error('User with this email already exists');
+    }
+    if (username_user) {
+        return Error('User with this username already exists');
     }
     return true;
 }
@@ -23,6 +27,12 @@ async function add_user(req, res) {
     
         if (request === true){
             const hashedPassword = await bcrypt.hash(req.body.password, 10);
+            if (req.body.username.split(" ").length > 1) {
+                return res.status(400).json({
+                    status: 'failure',
+                    description: 'Invalid username format, cannot have spaces'
+                })
+            }
             const userObj = {
                 'username': req.body.username,
                 'email': req.body.email,
@@ -56,9 +66,14 @@ async function get_user_by_username(req, res) {
         if (cur_user) {
             let res_obj = {
                 username: cur_user.username,
-                email: cur_user.email,
                 created_at: cur_user.created_at
             };
+            if (cur_user.id == res.locals.user_id) {
+                res_obj = {
+                    ...res_obj,
+                    email: cur_user.email
+                }
+            }
             res.status(200).json({
                 status: 'success',
                 data: res_obj
@@ -94,7 +109,7 @@ async function login(req, res) {
                 })
             }
             else{
-                let tokens = jwtTokens({
+                let tokens = jwtUtils.jwtTokens({
                     id: userObj.id,
                     username: userObj.username,
                     email: userObj.email
