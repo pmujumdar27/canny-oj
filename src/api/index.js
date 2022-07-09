@@ -1,11 +1,14 @@
 const express = require('express');
 const userRouter = require('./routes/users');
+const problemRouter = require('./routes/problems');
 const database = require('../../config/DatabaseConfig');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 
 dotenv.config();
 
 const app = express();
+app.use(morgan('dev'));
 
 const port = process.env.PORT || 3000;
 
@@ -16,6 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users', userRouter);
+app.use('/problems', problemRouter);
 
 app.listen(port, (err) => {
     if(err) console.log('[ERROR] Error in listening!');

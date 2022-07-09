@@ -3,7 +3,7 @@ const missing_keys = require('../helpers/object');
 const bcrypt = require('bcryptjs');
 const jwtUtils = require('../helpers/jwtHelpers');
 
-async function check_request(req) {
+async function check_post_request(req) {
     const required_keys = ['username', 'email', 'password'];
     const missing = missing_keys(req.body, required_keys);
     if (missing.length > 0) {
@@ -23,7 +23,7 @@ async function check_request(req) {
 
 async function add_user(req, res) {
     try{
-        const request = await check_request(req);
+        const request = await check_post_request(req);
     
         if (request === true){
             const hashedPassword = await bcrypt.hash(req.body.password, 10);

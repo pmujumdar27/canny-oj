@@ -43,7 +43,7 @@ class Problem extends Model {
     static get relationMappings() {
         const User = require('./user');
         return{
-            author: {
+            problem_author: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: User,
                 join: {

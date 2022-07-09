@@ -20,3 +20,18 @@ Content-Type: application/json
     "email": "pushkarm27@gmail.com",
     "password": "lasan"
 }
+
+###
+GET http://localhost:3000/problems
+Content-Type: application/json
+
+###
+POST http://localhost:3000/problems
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzM5NTcwMywiZXhwIjoxNjU3NDMxNzAzfQ.ohdrdmXU2xHnMx3tX5QhI7O_-A7mXHaniX7VJ6WwM8k
+
+{
+    "statement": "this is a problem",
+    "test_input": "1 2 3 4",
+    "test_output": "1 4 9 16"
+}
