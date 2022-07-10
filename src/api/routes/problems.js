@@ -37,6 +37,7 @@ const testUpload = multer({
     ]
 )
 
+router.get('/:id/tests', jsonParser, requireAuth, problemController.get_tests_data_by_id);
 router.get('/:id', jsonParser, problemController.get_problem_by_id);
 router.get('/', jsonParser, problemController.get_problems);
 router.post('/', jsonParser, requireAuth, testUpload, problemController.add_problem);

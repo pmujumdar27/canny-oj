@@ -1,6 +1,7 @@
 const Problem = require('../models/problem');
 const objectUtils = require('../helpers/object');
 const jwtUtils = require('../helpers/jwtHelpers');
+const User = require('../models/user');
 
 async function check_post_request(req) {
     const required_keys = ['statement', 'sample_input', 'sample_output', 'title'];
@@ -95,8 +96,47 @@ async function get_problem_by_id(req, res) {
     }
 }
 
+async function get_tests_data_by_id(req, res) {
+    try {
+        const curUser = await User.query().findById(res.locals.user_id).withGraphFetched(
+            'permissions'
+        );
+        const curPermissions = curUser.permissions;
+        let hasPermission = false;
+        for (permission of curPermissions) {
+            if (permission.key === 'access_tests') {
+                hasPermission = true;
+                break;
+            }
+        }
+        if (!hasPermission) {
+            return res.status(401).json({
+                status: 'failure',
+                description: 'Unauthorized! Invalid JWT Token'
+            });
+        }
+        else {
+            const accept_keys = ['id', 'test_input', 'test_output'];
+            const curProblem = await Problem.query().findById(req.params.id);
+            const res_data = objectUtils.accept(curProblem, accept_keys);
+            res.json({
+                status: 'success',
+                data: res_data
+            })
+        }
+    }
+    catch (ex) {
+        console.log(`[ERROR]: ${ex.stack}`);
+        res.status(500).json({
+            status: 'failure',
+            description: 'Internal server error'
+        })
+    }
+}
+
 module.exports = {
     add_problem,
     get_problems,
-    get_problem_by_id
+    get_problem_by_id,
+    get_tests_data_by_id
 }
