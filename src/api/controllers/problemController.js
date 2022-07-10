@@ -1,10 +1,10 @@
 const Problem = require('../models/problem');
-const missing_keys = require('../helpers/object');
+const objectUtils = require('../helpers/object');
 const jwtUtils = require('../helpers/jwtHelpers');
 
 async function check_post_request(req) {
     const required_keys = ['statement', 'sample_input', 'sample_output', 'title'];
-    const missing = missing_keys(req.body, required_keys);
+    const missing = objectUtils.missing_keys(req.body, required_keys);
     if (missing.length > 0) {
         return Error(`Required keys not found: ${missing.join(', ')}`);
     }
@@ -57,15 +57,42 @@ async function add_problem(req, res) {
 }
 
 async function get_problems(req, res) {
-    res.json({
-        data: 'get_problems'
-    });
+    try {
+        const problems = await Problem.query();
+        const reject_keys = ['test_input', 'test_output'];
+        const filtered = problems.map(obj => objectUtils.reject(obj, reject_keys));
+        res.json({
+            status: 'success',
+            data: filtered
+        });
+    }
+    catch (ex) {
+        console.log(`[ERROR]: ${ex}`);
+        res.status(500).json({
+            status: 'failure',
+            description: 'Internal server error'
+        })
+    }
 }
 
 async function get_problem_by_id(req, res) {
-    res.json({
-        data: `get prob by id ${req.params.id}`
-    })
+    try {
+        const problem_id = req.params.id;
+        const problem = await Problem.query().findById(problem_id);
+        const reject_keys = ['test_input', 'test_output'];
+        const filtered = objectUtils.reject(problem, reject_keys);
+        res.json({
+            status: 'success',
+            data: filtered
+        });
+    }
+    catch (ex) {
+        console.log(`[ERROR]: ${ex}`);
+        res.status(500).json({
+            status: 'failure',
+            description: 'Internal server error'
+        })
+    }
 }
 
 module.exports = {

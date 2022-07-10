@@ -11,4 +11,23 @@ function missing_keys(record, keys) {
     return missing;
 }
 
-module.exports = missing_keys;
+function accept(obj, keys) {
+	return Object.keys(obj)
+		.filter(k => keys.includes(k))
+		.map(k => Object.assign({}, { [k]: obj[k] }))
+		.reduce((res, o) => Object.assign(res, o), {});
+}
+
+function reject(obj, keys) {
+	return Object.keys(obj)
+		.filter(k => !keys.includes(k))
+		.map(k => Object.assign({}, { [k]: obj[k] }))
+		.reduce((res, o) => Object.assign(res, o), {});
+}
+
+module.exports = {
+    missing_keys,
+    accept,
+    reject,
+    has
+};

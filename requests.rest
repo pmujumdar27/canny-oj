@@ -10,7 +10,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/users/pm27_test
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzM5NTcwMywiZXhwIjoxNjU3NDMxNzAzfQ.ohdrdmXU2xHnMx3tX5QhI7O_-A7mXHaniX7VJ6WwM8k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzQ0MzU4NiwiZXhwIjoxNjU3NDc5NTg2fQ.2qCMzQ3T4_4NI9m2qiAXJQ_abcsJLf_-VSQT_SWsZ60
 
 ###
 POST http://localhost:3000/users/login
@@ -28,10 +28,20 @@ Content-Type: application/json
 ###
 POST http://localhost:3000/problems
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzM5NTcwMywiZXhwIjoxNjU3NDMxNzAzfQ.ohdrdmXU2xHnMx3tX5QhI7O_-A7mXHaniX7VJ6WwM8k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzQ0MzU4NiwiZXhwIjoxNjU3NDc5NTg2fQ.2qCMzQ3T4_4NI9m2qiAXJQ_abcsJLf_-VSQT_SWsZ60
 
 {
     "statement": "this is a problem",
     "test_input": "1 2 3 4",
     "test_output": "1 4 9 16"
 }
+
+###
+GET http://localhost:3000/problems
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzQ0MzU4NiwiZXhwIjoxNjU3NDc5NTg2fQ.2qCMzQ3T4_4NI9m2qiAXJQ_abcsJLf_-VSQT_SWsZ60
+
+###
+GET http://localhost:3000/problems/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzQ0MzU4NiwiZXhwIjoxNjU3NDc5NTg2fQ.2qCMzQ3T4_4NI9m2qiAXJQ_abcsJLf_-VSQT_SWsZ60

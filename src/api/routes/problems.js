@@ -27,18 +27,6 @@ const storage = multer.diskStorage(
     }
 )
 
-var upload = multer({
-    storage: storage,
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype == "text/plain") {
-            cb(null, true);
-        } else {
-            cb(null, false);
-            return cb(new Error('.txt format allowed!'));
-        }
-    }
-});
-
 const testUpload = multer({
     storage: storage,
 })

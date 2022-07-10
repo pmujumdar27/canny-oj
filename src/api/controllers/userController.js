@@ -1,11 +1,11 @@
 const User = require('../models/user');
-const missing_keys = require('../helpers/object');
+const objectUtils = require('../helpers/object');
 const bcrypt = require('bcryptjs');
 const jwtUtils = require('../helpers/jwtHelpers');
 
 async function check_post_request(req) {
     const required_keys = ['username', 'email', 'password'];
-    const missing = missing_keys(req.body, required_keys);
+    const missing = objectUtils.missing_keys(req.body, required_keys);
     if (missing.length > 0) {
         return Error(`Required keys not found: ${missing.join(', ')}`);
     }
