@@ -1,7 +1,7 @@
 const Problem = require('../models/problem');
+const User = require('../models/user');
 const objectUtils = require('../helpers/object');
 const jwtUtils = require('../helpers/jwtHelpers');
-const User = require('../models/user');
 
 async function check_post_request(req) {
     const required_keys = ['statement', 'sample_input', 'sample_output', 'title'];

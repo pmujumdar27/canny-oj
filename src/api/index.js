@@ -1,6 +1,7 @@
 const express = require('express');
 const userRouter = require('./routes/users');
 const problemRouter = require('./routes/problems');
+const submissionRouter = require('./routes/submissions');
 const database = require('../../config/DatabaseConfig');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 
 app.use('/users', userRouter);
 app.use('/problems', problemRouter);
+app.use('/submissions', submissionRouter);
 
 app.listen(port, (err) => {
     if(err) console.log('[ERROR] Error in listening!');

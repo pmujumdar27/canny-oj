@@ -17,7 +17,7 @@ POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
-    "email": "pushkarm27_test@gmail.com",
+    "email": "pushkarm27@gmail.com",
     "password": "lasan"
 }
 
@@ -49,4 +49,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hb
 ###
 GET http://localhost:3000/problems/1/tests
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJwbTI3X3Rlc3QiLCJlbWFpbCI6InB1c2hrYXJtMjdfdGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NTc0NTA2NzksImV4cCI6MTY1NzQ4NjY3OX0.uYWahktiRBwTqgvFDYEE8yARNT11DXKS3qsmZlRJxhw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzU3MTE2NywiZXhwIjoxNjU3NjA3MTY3fQ.meAq9JVN5P9WEN6PBFVpxvhcFoo6SGPhb7id0C1fZJs
+
+###
+GET http://localhost:3000/submissions/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzU3MTE2NywiZXhwIjoxNjU3NjA3MTY3fQ.meAq9JVN5P9WEN6PBFVpxvhcFoo6SGPhb7id0C1fZJs
+
+###
+GET http://localhost:3000/submissions
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzU3MTE2NywiZXhwIjoxNjU3NjA3MTY3fQ.meAq9JVN5P9WEN6PBFVpxvhcFoo6SGPhb7id0C1fZJs
