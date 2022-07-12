@@ -1,1 +1,3 @@
-# canny-oj
+## CannyOJ
+
+This is an online judge :)

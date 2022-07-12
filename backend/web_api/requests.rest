@@ -8,9 +8,9 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/users/pm27_test
+GET http://localhost:3000/users/pm27
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzQ0MzU4NiwiZXhwIjoxNjU3NDc5NTg2fQ.2qCMzQ3T4_4NI9m2qiAXJQ_abcsJLf_-VSQT_SWsZ60
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJwbTI3X3Rlc3QiLCJlbWFpbCI6InB1c2hrYXJtMjdfdGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NTc2MzIyNTcsImV4cCI6MTY1NzY2ODI1N30.8oM8IQJfCrBMr2oiY85emlHkraJ6rt58c5VaJSihP2c
 
 ###
 POST http://localhost:3000/users/login
@@ -64,7 +64,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hb
 ###
 PUT http://localhost:3000/submissions/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzYyMTkxMCwiZXhwIjoxNjU3NjU3OTEwfQ.NbjfXjsjKH_RHu-a5Y7lwZYuT1CCM9JxHcOgpSzZ1jg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJwbTI3X3Rlc3QiLCJlbWFpbCI6InB1c2hrYXJtMjdfdGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NTc2MjI2ODcsImV4cCI6MTY1NzY1ODY4N30.SS_BVKTw45EdaR3HoggjTDwiGMxXSVfDROxttXdjLJo
 
 {
     "status": "AC"
