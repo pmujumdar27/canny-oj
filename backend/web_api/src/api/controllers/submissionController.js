@@ -23,7 +23,6 @@ async function add_submission(req, res) {
                 language: req.body.language,
                 solution_file: req.file.path
             };
-            console.log(req.file);
             await Submission.query().insert(submissionObj);
             res.status(201).json({
                 status: 'success',
