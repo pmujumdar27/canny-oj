@@ -17,7 +17,7 @@ POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
-    "email": "pushkarm27@gmail.com",
+    "email": "pushkarm27_test@gmail.com",
     "password": "lasan"
 }
 
@@ -54,9 +54,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hb
 ###
 GET http://localhost:3000/submissions/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzU3MTE2NywiZXhwIjoxNjU3NjA3MTY3fQ.meAq9JVN5P9WEN6PBFVpxvhcFoo6SGPhb7id0C1fZJs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJwbTI3X3Rlc3QiLCJlbWFpbCI6InB1c2hrYXJtMjdfdGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NTc2MTgyMTEsImV4cCI6MTY1NzY1NDIxMX0.YWxHrnk0i52pZq12HCkkh8drxMThZWDoM7uQ4-H2uyQ
 
 ###
 GET http://localhost:3000/submissions
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzU3MTE2NywiZXhwIjoxNjU3NjA3MTY3fQ.meAq9JVN5P9WEN6PBFVpxvhcFoo6SGPhb7id0C1fZJs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzYyMTkxMCwiZXhwIjoxNjU3NjU3OTEwfQ.NbjfXjsjKH_RHu-a5Y7lwZYuT1CCM9JxHcOgpSzZ1jg
+
+###
+PUT http://localhost:3000/submissions/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJwbTI3IiwiZW1haWwiOiJwdXNoa2FybTI3QGdtYWlsLmNvbSIsImlhdCI6MTY1NzYyMTkxMCwiZXhwIjoxNjU3NjU3OTEwfQ.NbjfXjsjKH_RHu-a5Y7lwZYuT1CCM9JxHcOgpSzZ1jg
+
+{
+    "status": "AC"
+}

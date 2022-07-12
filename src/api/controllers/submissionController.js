@@ -1,7 +1,8 @@
 const Submission = require('../models/submission');
-const User = require('../models/user');
 const objectUtils = require('../helpers/object');
 const jwtUtils = require('../helpers/jwtHelpers');
+const fs = require('fs/promises');
+const User = require('../models/user');
 
 async function check_post_request(req) {
     const required_keys = ['language', 'problem_id'];
@@ -22,6 +23,7 @@ async function add_submission(req, res) {
                 language: req.body.language,
                 solution_file: req.file.path
             };
+            console.log(req.file);
             await Submission.query().insert(submissionObj);
             res.status(201).json({
                 status: 'success',
@@ -53,6 +55,28 @@ async function get_submission_by_id(req, res) {
         const submission_id = req.params.id;
         const submission = await Submission.query().findById(submission_id);
         const user_id = jwtUtils.get_user_id(req);
+
+        const curUser = await User.query().findById(user_id).withGraphFetched('permissions');
+
+        const curPermissions = curUser.permissions;
+        let hasJudgePermission = false;
+        for (permission of curPermissions) {
+            if (permission.key === 'access_submissions'){
+                hasJudgePermission = true;
+                break;
+            }
+        }
+
+        if (hasJudgePermission) {
+            const solution_code = await fs.readFile(submission.solution_file, { encoding: 'utf8' });
+            console.log(solution_code);
+            submission.solution_code = solution_code;
+            return res.json({
+                status: 'success',
+                data: submission
+            });
+        }
+
         var reject_keys = ['solution_file'];
         
         // if own submission give code as well
@@ -60,7 +84,14 @@ async function get_submission_by_id(req, res) {
             reject_keys = [];
         }
 
-        const filtered = objectUtils.reject(submission, reject_keys);
+        var filtered = objectUtils.reject(submission, reject_keys);
+
+        if (filtered.solution_file) {
+            const solution_code = await fs.readFile(filtered.solution_file, { encoding: 'utf8' });
+            console.log(solution_code);
+            filtered.solution_code = solution_code;
+            filtered = objectUtils.reject(filtered, ['solution_file']);
+        }
 
         res.json({
             status: 'success',
@@ -89,7 +120,59 @@ async function get_submissions(req, res) {
         });
     }
     catch (ex) {
-        console.log(`[ERROR]: ${ex}`);
+        console.log(`[ERROR]: ${ex.stack}`);
+        res.status(500).json({
+            status: 'failure',
+            description: 'Internal server error'
+        })
+    }
+}
+
+async function update_submission_status_by_id(req, res) {
+    try {
+        const submission_id = req.params.id;
+        const new_status = req.body.status;
+        const user_id = jwtUtils.get_user_id(req);
+        
+        const curUser = await User.query().findById(user_id).withGraphFetched('permissions');
+        const curSubmission = await Submission.query().findById(submission_id);
+
+        if(curSubmission == null){
+            return res.status(404).json({
+                status: 'failure',
+                description: 'Submission not found'
+            });
+        }
+
+        const curPermissions = curUser.permissions;
+
+        let hasUpdatePermission = false;
+
+        for (permission of curPermissions) {
+            if (permission.key === 'access_submissions'){
+                hasUpdatePermission = true;
+                break;
+            }
+        }
+
+        if (!hasUpdatePermission) {
+            return res.status(401).json({
+                status: 'failure',
+                description: 'Unauthorized! Invalid JWT Token'
+            });
+        }
+
+        const numUpdated = await Submission.query().findById(submission_id).patch({
+            status: new_status
+        });
+
+        return res.json({
+            status:' success',
+            data: 'updated successfully'
+        })
+    }
+    catch (ex) {
+        console.log(`[ERROR]: ${ex.stack}`);
         res.status(500).json({
             status: 'failure',
             description: 'Internal server error'
@@ -100,5 +183,6 @@ async function get_submissions(req, res) {
 module.exports = {
     add_submission,
     get_submission_by_id,
-    get_submissions
+    get_submissions,
+    update_submission_status_by_id
 }

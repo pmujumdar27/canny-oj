@@ -34,6 +34,7 @@ const subUpload = multer({
 router.post('/submit', jsonParser, requireAuth, subUpload.single('submission_file'), submissionController.add_submission);
 router.get('/:id', jsonParser, requireAuth, submissionController.get_submission_by_id);
 router.get('/', jsonParser, requireAuth, submissionController.get_submissions);
+router.put('/:id', jsonParser, requireAuth, submissionController.update_submission_status_by_id);
 
 
 module.exports = router;
