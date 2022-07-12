@@ -105,3 +105,4 @@ dist
 
 test_io/
 test_submissions/
+.DS_STORE
