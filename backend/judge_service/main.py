@@ -5,6 +5,9 @@ import time
 import os
 from dotenv import load_dotenv
 
+from judge import judge_problem
+from queries import update_submission_status, get_judge_next
+
 load_dotenv()
 
 def connect():
@@ -31,22 +34,49 @@ def connect():
             "password": os.environ.get('judge_password')
         }
         r = requests.post(url=urlnm, json = data)
-        print(type(r.json()))
         resp = r.json()
         token = resp['tokens']['accessToken']
 
         while(True):
             time.sleep(1)
-            cur.execute("SELECT * FROM submissions WHERE status='IQ' ORDER BY created_at LIMIT 1")
-            judge_next = cur.fetchall()
+
+            judge_next = get_judge_next(cur)
+
+            if len(judge_next) < 1:
+                continue
+
+            submission = {
+                'id': judge_next[0][0],
+                'solution_file': judge_next[0][1],
+                'user_id': judge_next[0][2],
+                'problem_id': judge_next[0][3],
+                'status': judge_next[0][4],
+                'language': judge_next[0][5],
+                'created_at': judge_next[0][6]
+            }
+
+            update_cnt = update_submission_status(cur, conn, submission['id'], 'RN')
 
             headers = {
-                "Content-Type": "application/json; charset=utf-8",
-                "Authorization": f"Bearer {token}"
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Authorization": f"Bearer {token}"
                 }
 
-            prob = requests.get(url=f"http://localhost:3000/problems/{judge_next[0][3]}/tests", params=None, headers=headers)
-            print(prob.json())
+            prob_resp = requests.get(url=f"http://localhost:3000/problems/{submission['problem_id']}/tests", params=None, headers=headers)
+            prob_data = prob_resp.json()['data']
+            test_dir = "../web_api/test_io"
+            submission_dir = "../web_api/"
+            input_path = os.path.join(test_dir, prob_data['test_input'])
+            output_path = os.path.join(test_dir, prob_data['test_output'])
+            submission_path = os.path.join(submission_dir, submission['solution_file'])
+
+            ret = judge_problem(input_path, output_path, submission_path, submission['language'])
+            if ret.returncode==0:
+                update_submission_status(cur, conn, submission['id'], 'AC')
+                print(f"Submission ID: {submission['id']}\nStatus: {'AC'}")
+            else:
+                update_submission_status(cur, conn, submission['id'], 'WA')
+                print(f"Submission ID: {submission['id']}\nStatus: {'WA'}")
 
 
     except (Exception, psycopg2.DatabaseError) as error:

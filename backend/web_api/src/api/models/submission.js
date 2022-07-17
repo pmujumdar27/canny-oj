@@ -20,7 +20,7 @@ class Submission extends Model {
                 problem_id: { type: 'integer' },
                 status: {
                     type: 'string',
-                    enum: ['WA', 'AC', 'TLE', 'IQ', 'RN', 'RTE'],
+                    enum: ['WA', 'AC', 'TLE', 'IQ', 'RN', 'RTE', 'CE'],
                     default: 'IQ'
                 },
                 language: { type: 'string' }
