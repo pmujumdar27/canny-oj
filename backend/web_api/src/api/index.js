@@ -5,11 +5,14 @@ const submissionRouter = require('./routes/submissions');
 const database = require('../../config/DatabaseConfig');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
 app.use(morgan('dev'));
+
+app.use(cors());
 
 const port = process.env.PORT || 3000;
 

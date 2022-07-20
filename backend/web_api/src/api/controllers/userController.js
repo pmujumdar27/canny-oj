@@ -40,7 +40,10 @@ async function add_user(req, res) {
             }
             await User.query().insert(userObj);
             const curUser = await User.query().where('email', userObj.email);
-            res.status(201).json(curUser);
+            res.status(201).json({
+                status: 'success',
+                data: curUser
+            });
         }
         else {
             res.status(400).json({
@@ -117,7 +120,7 @@ async function login(req, res) {
                 res.cookie('refreshToken', tokens.refreshToken, {httpOnly:true});
                 res.status(200).json({
                     status: 'success',
-                    tokens: tokens
+                    data: tokens
                 })
             }
         }
