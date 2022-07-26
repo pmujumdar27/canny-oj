@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8000/users";
 
-const signup = async (username, email, password) => {
+const signup = (username, email, password) => {
     return axios
         .post(API_URL + "/signup", {
             username,
@@ -17,7 +17,7 @@ const signup = async (username, email, password) => {
         })
 };
 
-const login = async (email, password) => {
+const login = (email, password) => {
     return axios
         .post(API_URL + "/login", {
             email,

@@ -19,6 +19,7 @@ const Login = () => {
 					else {
 						localStorage.setItem("tokens", JSON.stringify(res.data));
 						alert("Logged in!");
+						navigate('/');
 					}
 				})
 		}
