@@ -31,7 +31,6 @@ const Problems = () => {
                     return (
                         <div key={Math.random()}>
                             <Link to={`/problems/${prob.id}`}><h4>{prob.title}</h4></Link>
-                            
                         </div>
                     )
                 })

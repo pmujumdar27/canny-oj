@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 import Home from "./components/Home";
@@ -7,15 +6,7 @@ import Private from "./components/Private";
 import Signup from "./components/Signup";
 import Problems from "./components/Problems";
 import Problem from "./components/Problem";
-
-function Test() {
-	let {id} = useParams();
-	return (
-		<div>
-			Test: {id}
-		</div>
-	)
-}
+import Submissions from "./components/Submissions";
 
 function App() {
 	const [currentUser, setCurrentUser] = useState(undefined);
@@ -30,7 +21,7 @@ function App() {
 					<Route path="/signup" element={<Signup />} />
 					<Route exact path="/problems" element={<Problems />} />
 					<Route path="/problems/:id" element={<Problem />} />
-					<Route path="/test/:id" element={<Test/>} />
+					<Route exact path="/submissions" element={<Submissions />}/>
 				</Routes>
 			</div>
 		</div>
