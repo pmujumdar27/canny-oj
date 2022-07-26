@@ -11,6 +11,14 @@ function missing_keys(record, keys) {
     return missing;
 }
 
+function empty_strings(record, keys) {
+    const empty = [];
+    for (const key of keys) {
+        if(record[key].trim() === "") empty.push(key);
+    }
+    return empty;
+}
+
 function accept(obj, keys) {
 	return Object.keys(obj)
 		.filter(k => keys.includes(k))
@@ -27,6 +35,7 @@ function reject(obj, keys) {
 
 module.exports = {
     missing_keys,
+    empty_strings,
     accept,
     reject,
     has

@@ -9,6 +9,10 @@ async function check_post_request(req) {
     if (missing.length > 0) {
         return Error(`Required keys not found: ${missing.join(', ')}`);
     }
+    const empty = objectUtils.empty_strings(req.body, required_keys);
+    if (empty.length > 0) {
+        return Error(`Required keys are empty: ${empty.join(', ')}`);
+    }
 
     const [email_user] = await User.query().where('email', req.body.email);
     const [username_user] = await User.query().where('username', req.body.username);

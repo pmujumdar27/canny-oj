@@ -80,6 +80,13 @@ async function get_problem_by_id(req, res) {
     try {
         const problem_id = req.params.id;
         const problem = await Problem.query().findById(problem_id);
+        if (!problem) {
+            res.status(404).json({
+                status: 'failure',
+                description: 'Problem not found'
+            });
+            return;
+        }
         const reject_keys = ['test_input', 'test_output'];
         const filtered = objectUtils.reject(problem, reject_keys);
         res.json({
@@ -101,6 +108,13 @@ async function get_tests_data_by_id(req, res) {
         const curUser = await User.query().findById(res.locals.user_id).withGraphFetched(
             'permissions'
         );
+        if(!curUser) {
+            res.status(401).json({
+                status: 'failure',
+                description: 'Invalind user ID'
+            })
+            return;
+        }
         const curPermissions = curUser.permissions;
         let hasPermission = false;
         for (permission of curPermissions) {
