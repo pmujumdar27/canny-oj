@@ -29,14 +29,14 @@ function jwtTokens({
 function parse_user(token, app_secret) {
     try {
         const user_obj = jwt.verify(token, app_secret);
-        return user_obj.id;
+        return user_obj;
     }
     catch (ex) {
         return false;
     }
 }
 
-function get_user_id(req) {
+function get_user(req) {
     let app_secret = process.env.ACCESS_TOKEN_SECRET;
 
     const Authorization = req.headers.authorization;
@@ -46,6 +46,14 @@ function get_user_id(req) {
         return parse_user(token, app_secret);
     }
     
+    return false;
+}
+
+function get_user_id(req) {
+    const curUser = get_user(req);
+    if (curUser) {
+        return curUser.id;
+    }
     return false;
 }
 
@@ -65,5 +73,6 @@ function get_payload(req) {
 module.exports = {
     jwtTokens,
     get_user_id,
-    get_payload
+    get_payload,
+    get_user
 };

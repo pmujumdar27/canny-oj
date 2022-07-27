@@ -136,7 +136,31 @@ async function login(req, res) {
         }
     }
     catch (ex) {
-        console.log(`[ERROR]: ${ex}`);
+        console.log(`[ERROR]: ${ex.stack}`);
+        res.status(500).json({
+            status: 'failure',
+            description: 'Internal server error'
+        })
+    }
+}
+
+async function get_current_user(req, res) {
+    try {
+        const curUser = jwtUtils.get_user(req);
+        if (!curUser) {
+            res.status(403).json({
+                status: 'failure',
+                description: 'Invalid JWT token'
+            })
+            return;
+        }
+        res.json({
+            status: 'success',
+            data: curUser
+        })
+    }
+    catch (ex) {
+        console.log(`[ERROR]: ${ex.stack}`);
         res.status(500).json({
             status: 'failure',
             description: 'Internal server error'
@@ -147,5 +171,6 @@ async function login(req, res) {
 module.exports = {
     add_user,
     get_user_by_username,
-    login
+    login,
+    get_current_user
 }

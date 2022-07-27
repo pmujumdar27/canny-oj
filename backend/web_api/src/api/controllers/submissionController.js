@@ -87,7 +87,6 @@ async function get_submission_by_id(req, res) {
 
         if (filtered.solution_file) {
             const solution_code = await fs.readFile(filtered.solution_file, { encoding: 'utf8' });
-            console.log(solution_code);
             filtered.solution_code = solution_code;
             filtered = objectUtils.reject(filtered, ['solution_file']);
         }

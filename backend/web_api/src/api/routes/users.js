@@ -10,9 +10,9 @@ const jsonParser = bodyParser.json({
     type: 'application/json'
 });
 
-// router.get('/', jsonParser, get_users);
 router.post('/signup', jsonParser, userController.add_user);
 router.post('/login', jsonParser, userController.login);
+router.get('/', jsonParser, requireAuth, userController.get_current_user);
 router.get('/:username', jsonParser, requireAuth, userController.get_user_by_username);
 
 module.exports = router;
