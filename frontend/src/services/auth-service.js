@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8000/users";
 
@@ -17,6 +18,11 @@ const signup = (username, email, password) => {
         })
 };
 
+const getUser = () => {
+    return axios
+        .get(API_URL, { headers: authHeader() })
+}
+
 const login = (email, password) => {
     return axios
         .post(API_URL + "/login", {
@@ -33,7 +39,8 @@ const login = (email, password) => {
 
 const authService = {
     signup,
-    login
+    login,
+    getUser
 };
 
 export default authService;

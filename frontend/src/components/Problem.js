@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import problemService from '../services/problem-service';
 import { useNavigate } from 'react-router-dom';
 import submissionService from '../services/submission-service';
+import Button from 'react-bootstrap/Button'
 
 const Problem = () => {
 
@@ -50,8 +51,8 @@ const Problem = () => {
 
     return (
         <div>
-            <h2> Problem </h2>
-            <h3> {problem.title} </h3>
+            <h2>Problem </h2>
+            <h3>{problem.title} </h3>
             <hr/>
             {problem.author}
             <hr/>
@@ -70,7 +71,7 @@ const Problem = () => {
                     <option value="python">Python</option>
                 </select>
                 <input type="file" onChange={handleChange}/>
-                <button type="submit">Upload</button>
+                <Button variant="primary" type="submit">Upload</Button>
             </form>
         </div>
     )

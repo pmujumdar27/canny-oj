@@ -24,7 +24,7 @@ const Submissions = () => {
 
     return (
         <div>
-            <h2> Submission </h2>
+            <h2>Submissions</h2>
             <table>
                 <thead>
                     <tr>
@@ -38,18 +38,18 @@ const Submissions = () => {
                 </thead>
                 <tbody>
                         {
-                                submissions.map((sub, key) => {
-                                    return (
-                                        <tr key={Math.random()}>
-                                            <td> {sub.user_id} </td>
-                                            <td> {sub.problem_id} </td>
-                                            <td> {sub.language} </td>
-                                            <td> {sub.status} </td>
-                                            <td> {sub.created_at} </td>
-                                            <td> <Link to={`/submissions/${sub.id}`}> Code </Link></td>
-                                        </tr>
-                                    )
-                                })
+                            submissions.map((sub, key) => {
+                                return (
+                                    <tr key={Math.random()}>
+                                        <td> {sub.user_id} </td>
+                                        <td> {sub.problem_id} </td>
+                                        <td> {sub.language} </td>
+                                        <td> {sub.status} </td>
+                                        <td> {sub.created_at} </td>
+                                        <td> <Link to={`/submissions/${sub.id}`}> Code </Link></td>
+                                    </tr>
+                                )
+                            })
                         }
                 </tbody>
             </table>

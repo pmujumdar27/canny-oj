@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../services/auth-service';
+import Button from 'react-bootstrap/esm/Button';
 
 const Signup = () => {
     const [username, setUsername] = useState("");
@@ -50,7 +51,7 @@ const Signup = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">Sign up</button>
+                <Button variant="primary" type="submit">Sign up</Button>
             </form>
         </div>
     )

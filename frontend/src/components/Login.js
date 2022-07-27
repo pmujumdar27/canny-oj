@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../services/auth-service';
+import Button from 'react-bootstrap/Button';
 
 const Login = () => {
 	const [email, setEmail] = useState("");
@@ -18,6 +19,12 @@ const Login = () => {
 					}
 					else {
 						localStorage.setItem("tokens", JSON.stringify(res.data));
+						authService.getUser()
+							.then((userdata) => {
+								if(userdata) {
+									localStorage.setItem('curUser', JSON.stringify(userdata));
+								}
+							})
 						alert("Logged in!");
 						navigate('/');
 					}
@@ -44,7 +51,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">Login</button>
+                <Button variant="primary" type="submit">Login</Button>
 			</form>
 		</div>
 	)

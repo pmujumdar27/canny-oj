@@ -17,7 +17,7 @@ const Home = () => {
     return (
         <div>
             <h2>Home</h2>
-            { homeData.message }
+            {homeData.message}
         </div>
     )
 }

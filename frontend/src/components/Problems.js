@@ -25,12 +25,12 @@ const Problems = () => {
 
     return (
         <div>
-            <h2> Problems </h2>
+            <h2>Problems</h2>
             {
                 problems.map((prob, key) => {
                     return (
                         <div key={Math.random()}>
-                            <Link to={`/problems/${prob.id}`}><h4>{prob.title}</h4></Link>
+                            <Link to={`/problems/${prob.id}`}><p>{prob.title}</p></Link>
                         </div>
                     )
                 })
