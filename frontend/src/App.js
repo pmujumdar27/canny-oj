@@ -10,6 +10,8 @@ import Problem from "./components/Problem";
 import Submissions from "./components/Submissions";
 import Submission from "./components/Submission";
 import MyNavbar from "./components/MyNavbar";
+import Navbar2 from "./components/Navbar2";
+import ReduxTest from "./components/ReduxTest";
 
 function App() {
 	const [curUser, setCurUser] = useState("");
@@ -28,6 +30,7 @@ function App() {
 		<div className="App">
 			<MyNavbar curUser={curUser}/>
 			<div className="container mt-3">
+				{/* <Navbar2></Navbar2> */}
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/private" element={<Private />} />
@@ -37,6 +40,7 @@ function App() {
 					<Route path="/problems/:id" element={<Problem />} />
 					<Route exact path="/submissions" element={<Submissions />}/>
 					<Route path="/submissions/:id" element={<Submission />}/>
+					<Route path="/reduxtest" element={<ReduxTest />} />
 				</Routes>
 			</div>
 		</div>

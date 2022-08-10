@@ -13,13 +13,14 @@ const getProblemById = (id) => {
     return axios.get(API_URL + "/" +id, { headers: auth_headers });
 }
 
-const addProblem = async (id) => {
+const addProblem = async (payload) => {
     return "";
 }
 
 const problemService = {
     getProblems,
-    getProblemById
+    getProblemById,
+    addProblem
 };
 
 export default problemService;
