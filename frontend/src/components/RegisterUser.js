@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { userLogin } from '../features/user/userActions';
+import { registerUser } from '../features/user/userActions';
 
-const Login = () => {
-    const { loading, userInfo, error } = useSelector(
+const RegisterUser = () => {
+    const { loading, userInfo, error, success } = useSelector(
         (state) => state.user
     );
 
@@ -15,23 +15,32 @@ const Login = () => {
     const { register, handleSubmit } = useForm();
 
     useEffect(() => {
+        if (success) navigate('/login');
         if (userInfo) navigate('/user-profile');
-    }, [navigate, userInfo]);
+    }, [navigate, userInfo, success]);
 
     const submitForm = (data) => {
         data.email = data.email.toLowerCase();
-        dispatch(userLogin(data));
+        dispatch(registerUser(data));
     }
 
     return (
         <div>
             <div>
-                Login
+                Register
             </div>
             <hr></hr>
             { error && error.description }
             <div>
                 <form onSubmit={handleSubmit(submitForm)}>
+                    <div>
+                        <label htmlFor='username'>Username</label>
+                        <input
+                            type='text'
+                            {...register('username')}
+                            required
+                        />
+                    </div>
                     <div>
                         <label htmlFor='email'>Email</label>
                         <input
@@ -49,7 +58,7 @@ const Login = () => {
                         />
                     </div>
                     <button type='submit' className='button' disabled={loading}>
-                        Login
+                        Signup
                     </button>
                 </form>
             </div>
@@ -57,4 +66,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default RegisterUser;
