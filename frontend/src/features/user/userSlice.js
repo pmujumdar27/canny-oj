@@ -63,6 +63,7 @@ const userSlice = createSlice({
         },
         [getUserDetails.rejected]: (state, { payload }) => {
             state.loading = false;
+            state.error = payload;
         }
     }
 });
