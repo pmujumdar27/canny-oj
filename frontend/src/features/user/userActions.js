@@ -46,7 +46,7 @@ export const userLogin = createAsyncThunk(
                 config
             )
             
-            localStorage.setItem('userToken', data.accessToken);
+            localStorage.setItem('userToken', data.data.accessToken);
 
             return data;
         }
@@ -77,8 +77,6 @@ export const getUserDetails = createAsyncThunk(
                 API_URL,
                 config
             )
-
-            console.log("UserDetails: ", data);
 
             return data;
         }

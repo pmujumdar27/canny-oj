@@ -15,15 +15,18 @@ const UserProfile = () => {
 		}
 	}, [userToken, dispatch]);
 
-	console.log("UserToken: ", userToken);
-	console.log("UserInfo: ", userInfo);
+	console.log(userInfo);
 
 	return (
 		<div>
 			<h2>User Profile</h2>
-			<div>
-				{userInfo? `Logged in as ${userInfo.data.username}` : 'Not Logged In!'}
-			</div>
+			<span>
+				Welcome <strong>{userInfo?.data.username}</strong>
+			</span>
+			<br/>
+			<span>
+				Your registered email is: <strong>{userInfo?.data.email}</strong>
+			</span>
 		</div>
 	)
 }

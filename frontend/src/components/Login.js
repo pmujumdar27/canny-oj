@@ -15,7 +15,7 @@ const Login = () => {
     const { register, handleSubmit } = useForm();
 
     useEffect(() => {
-        if (userInfo) navigate('/user-profile');
+        if (userInfo?.status === "success") navigate('/user-profile');
     }, [navigate, userInfo]);
 
     const submitForm = (data) => {

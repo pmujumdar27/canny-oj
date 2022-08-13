@@ -17,23 +17,30 @@ const initialState = {
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        logout: (state) => {
+            localStorage.removeItem('userToken');
+            state.loading = false;
+            state.userInfo = null;
+            state.userToken = null;
+            state.error = null;
+        },
+    },
     extraReducers: {
         [userLogin.pending]: (state) => {
             state.loading = true;
             state.error = null;
         },
         [userLogin.fulfilled]: (state, { payload }) => {
-            console.log("payload: ", payload);
             state.loading = false;
             state.userInfo = payload;
             state.userToken = payload.data.accessToken;
         },
         [userLogin.rejected]: (state, { payload }) => {
-            console.log("payload: ", payload);
             state.loading = false;
             state.userInfo = payload;
             state.userToken = payload.data?.accessToken;
+            state.error = payload;
         },
         [registerUser.pending]: (state) => {
             state.loading = true;
@@ -60,4 +67,5 @@ const userSlice = createSlice({
     }
 });
 
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;
