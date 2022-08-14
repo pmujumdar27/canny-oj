@@ -10,6 +10,8 @@ import MyNavbar from './components/MyNavbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Problems from './components/Problems';
 import Submissions from './components/Submissions';
+import Problem from './components/Problem';
+import Submission from './components/Submission';
 
 function App() {
     return (
@@ -25,8 +27,12 @@ function App() {
 					<Route element={<ProtectedRoute />}>
 						<Route exact path="/submissions" element={<Submissions/>} />
 					</Route>
+					<Route element={<ProtectedRoute />}>
+						<Route path="/submissions/:id" element={<Submission/>} />
+					</Route>
 					<Route exact path="/signup" element={<Signup/>} />
 					<Route exact path="/problems" element={<Problems />} />
+					<Route path="/problems/:id" element={<Problem />} />
 				</Routes>
 			</Router>
         </div>

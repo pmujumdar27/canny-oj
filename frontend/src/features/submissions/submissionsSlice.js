@@ -1,30 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProblems } from "./problemsActions";
+import { getSubmissions } from "./submissionsActions";
 
 const initialState = {
     loading: false,
-    problems: [],
+    submissions: [],
     response: null,
     error: null,
     success: false
 }
 
-const problemsSlice = createSlice({
-    name: 'problems',
+const submissionsSlice = createSlice({
+    name: 'submissions',
     initialState,
     reducers: {},
     extraReducers: {
-        [getProblems.pending]: (state) => {
+        [getSubmissions.pending]: (state) => {
             state.loading = true;
         },
-        [getProblems.fulfilled]: (state, { payload }) => {
+        [getSubmissions.fulfilled]: (state, { payload }) => {
             state.loading = false;
             state.error = null;
             state.response = payload;
-            state.problems = payload.data;
+            state.submissions = payload.data;
             state.success = true;
         },
-        [getProblems.rejected]: (state, { payload }) => {
+        [getSubmissions.rejected]: (state, { payload }) => {
             state.loading = false;
             state.error = payload;
             state.response = payload;
@@ -33,4 +33,4 @@ const problemsSlice = createSlice({
     }
 });
 
-export default problemsSlice.reducer;
+export default submissionsSlice.reducer;

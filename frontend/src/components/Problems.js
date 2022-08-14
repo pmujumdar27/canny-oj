@@ -20,7 +20,7 @@ const Problems = () => {
         <div>
             <h2> Problems </h2>
             <hr />
-            <Table striped bordered hover variant='dark'>
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Title</th>
