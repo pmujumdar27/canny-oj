@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getProblem } from '../features/problem/problemActions';
+import CreateSubmission from './CreateSubmission';
 
 const Problem = () => {
     let { id } = useParams();
@@ -35,7 +36,7 @@ const Problem = () => {
                     <hr/>
                 </div>
             }
-            
+            <CreateSubmission id={id}/>
         </div>
     )
 }
