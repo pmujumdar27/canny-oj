@@ -1,60 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import submissionService from '../services/submission-service';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSubmissions } from '../features/submissions/submissionsActions';
 import { Link } from 'react-router-dom';
+import Table from 'react-bootstrap/Table';
 
 const Submissions = () => {
-    const [submissions, setSubmissions] = useState([]);
-    const navigate = useNavigate();
+    const { loading, submissions, response, error, success } = useSelector(
+        (state) => state.submissions
+    )
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        submissionService.getSubmissions()
-            .then((res) => {
-                console.log("Submissions: ", res.data.data);
-                setSubmissions(res.data.data);
-            },
-            (err) => {
-                console.log("Error: ", err);
-                if (err.response && err.response.status == 401) {
-                    alert("Invalid JWT token!");
-                    navigate("/login");
-                }
-            })
-    }, []);
+        dispatch(getSubmissions());
+    }, [dispatch]);
+
+    console.log("Submissions: ", submissions);
 
     return (
         <div>
             <h2>Submissions</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th> User ID </th>
-                        <th> Problem ID</th>
-                        <th> Language </th>
-                        <th> Status </th>
-                        <th> Submitted At </th>
-                        <th> Details </th>
-                    </tr>
-                </thead>
-                <tbody>
-                        {
-                            submissions.map((sub, key) => {
-                                return (
-                                    <tr key={Math.random()}>
-                                        <td> {sub.user_id} </td>
-                                        <td> {sub.problem_id} </td>
-                                        <td> {sub.language} </td>
-                                        <td> {sub.status} </td>
-                                        <td> {sub.created_at} </td>
-                                        <td> <Link to={`/submissions/${sub.id}`}> Code </Link></td>
-                                    </tr>
-                                )
-                            })
-                        }
-                </tbody>
-            </table>
+            {
+                loading || !response ? 'Loading ...'
+                :
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th> User ID </th>
+                            <th> Problem ID</th>
+                            <th> Language </th>
+                            <th> Status </th>
+                            <th> Submitted At </th>
+                            <th> Details </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {
+                                submissions.map((sub, key) => {
+                                    return (
+                                        <tr key={Math.random()}>
+                                            <td> {sub.user_id} </td>
+                                            <td> {sub.problem_id} </td>
+                                            <td> {sub.language} </td>
+                                            <td> {sub.status} </td>
+                                            <td> {sub.created_at} </td>
+                                            <td> <Link to={`/submissions/${sub.id}`}> Code </Link></td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                    </tbody>
+                </Table>
+            }
+            
+            
         </div>
     )
 }
 
-export default Submissions;
+export default Submissions

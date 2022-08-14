@@ -3,7 +3,6 @@ const authUtils = require('../helpers/jwtHelpers');
 
 function requireAuth (req, res, next) {
     try{
-        console.log("Request Headers: ", req.headers);
         const user_id = authUtils.get_user_id(req);
         if (user_id) {
             res.locals.user_id = user_id;
