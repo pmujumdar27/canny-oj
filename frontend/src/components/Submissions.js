@@ -26,6 +26,7 @@ const Submissions = () => {
                 <Table striped bordered hover>
                     <thead>
                         <tr>
+                            <th> Submission ID</th>
                             <th> User ID </th>
                             <th> Problem ID</th>
                             <th> Language </th>
@@ -39,6 +40,7 @@ const Submissions = () => {
                                 submissions.map((sub, key) => {
                                     return (
                                         <tr key={Math.random()}>
+                                            <td> {sub.id} </td>
                                             <td> {sub.user_id} </td>
                                             <td> {sub.problem_id} </td>
                                             <td> {sub.language} </td>

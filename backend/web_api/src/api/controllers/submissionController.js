@@ -68,7 +68,6 @@ async function get_submission_by_id(req, res) {
 
         if (hasJudgePermission) {
             const solution_code = await fs.readFile(submission.solution_file, { encoding: 'utf8' });
-            console.log(solution_code);
             submission.solution_code = solution_code;
             return res.json({
                 status: 'success',
@@ -107,7 +106,7 @@ async function get_submission_by_id(req, res) {
 
 async function get_submissions(req, res) {
     try {
-        const submissions = await Submission.query();
+        const submissions = await Submission.query().orderBy('created_at', 'desc');
         const reject_keys = ['solution_file'];
 
         const filtered = submissions.map(sub => objectUtils.reject(sub, reject_keys));

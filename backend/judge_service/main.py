@@ -78,16 +78,18 @@ def connect():
             submission_path = os.path.join(submission_dir, submission['solution_file'])
 
             ret = judge_problem(input_path, output_path, submission_path, submission['language'])
-            if ret.returncode==0:
+            if ret[0].returncode==0:
                 update_submission_status(cur, conn, submission['id'], 'AC')
                 print(f"Submission ID: {submission['id']}\nStatus: {'AC'}")
             else:
-                update_submission_status(cur, conn, submission['id'], 'WA')
-                print(f"Submission ID: {submission['id']}\nStatus: {'WA'}")
+                update_submission_status(cur, conn, submission['id'], ret[1])
+                print(f"Submission ID: {submission['id']}\nStatus: {ret[1]}")
 
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+    else:
+        print("Unexpected error")
     finally:
         if conn is not None:
             conn.close()
