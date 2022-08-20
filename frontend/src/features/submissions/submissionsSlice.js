@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getSubmissions } from "./submissionsActions";
+import { getSubmissions, createSubmission } from "./submissionsActions";
 
 const initialState = {
     loading: false,
@@ -29,6 +29,18 @@ const submissionsSlice = createSlice({
             state.error = payload;
             state.response = payload;
             state.success = false;
+        },
+        [createSubmission.pending]: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        [createSubmission.fulfilled]: (state, { payload }) => {
+            state.loading = false;
+            state.success = true;
+        },
+        [createSubmission.rejected]: (state, { payload }) => {
+            state.loading = false;
+            state.error = payload;
         }
     }
 });

@@ -23,7 +23,10 @@ const MyNavbar = () => {
 				<Navbar.Brand href='/'>CannyOJ</Navbar.Brand>
 				<Nav className='me-auto'>
 					<Nav.Link href='/'>Home</Nav.Link>
-					<Nav.Link href='/problems'>Problems</Nav.Link>
+					<NavDropdown title='Problems'>
+						<NavDropdown.Item href='/problems'>Problem List</NavDropdown.Item>
+						<NavDropdown.Item href='/problems/create'>Create New Problem</NavDropdown.Item>
+					</NavDropdown>
 					<Nav.Link href='/submissions'>Submissions</Nav.Link>
 					<Nav.Link href='#about'>About</Nav.Link>
 					{ userInfo && userToken ? 
@@ -32,7 +35,13 @@ const MyNavbar = () => {
 						<NavDropdown.Item onClick={() => dispatch(logout())}>Logout</NavDropdown.Item>
 					</NavDropdown>
 					:
-					<Nav.Link href='/login'>Login</Nav.Link>}
+					<Nav.Link href='/login'>Login</Nav.Link>
+					}
+					{ !(userInfo && userToken ) ?
+					<Nav.Link href='/signup'>Register</Nav.Link>
+					:
+					<></>
+					}
 				</Nav>
 			</Container>
 		</Navbar>

@@ -31,4 +31,38 @@ export const getSubmissions = createAsyncThunk(
             }
         }
     }
+);
+
+export const createSubmission = createAsyncThunk(
+    'submissions/createSubmission',
+    async (arg, { getState, rejectWithValue }) => {
+        try {
+            const { user } = getState();
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.userToken}`,
+                    'Content-type': 'multipart/form-data'
+                },
+            }
+
+            const { data } = await axios.post(
+                API_URL + '/submit',
+                arg,
+                config
+            );
+
+            console.log("Resp: ", data);
+
+            return data;
+        }
+        catch (error) {
+            if (error.response && error.response.data) {
+                return rejectWithValue(error.response.data);
+            }
+            else {
+                return rejectWithValue(error.message);
+            }
+        }
+    }
 )

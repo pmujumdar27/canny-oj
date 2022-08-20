@@ -12,6 +12,7 @@ import Problems from './components/Problems';
 import Submissions from './components/Submissions';
 import Problem from './components/Problem';
 import Submission from './components/Submission';
+import CreateProblem from './components/CreateProblem';
 
 function App() {
     return (
@@ -32,7 +33,12 @@ function App() {
 					</Route>
 					<Route exact path="/signup" element={<Signup/>} />
 					<Route exact path="/problems" element={<Problems />} />
-					<Route path="/problems/:id" element={<Problem />} />
+					<Route element={<ProtectedRoute />}>
+						<Route path="/problems/:id" element={<Problem />} />
+					</Route>
+					<Route element={<ProtectedRoute />}>
+						<Route exact path="/problems/create" element={<CreateProblem />} />
+					</Route>
 				</Routes>
 			</Router>
         </div>

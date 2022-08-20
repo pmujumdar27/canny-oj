@@ -109,3 +109,4 @@ test_submissions/
 venv/
 *.ini
 *.rest
+testing_files/
