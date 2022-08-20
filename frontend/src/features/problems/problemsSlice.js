@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProblems } from "./problemsActions";
+import { getProblems, createProblem } from "./problemsActions";
 
 const initialState = {
     loading: false,
@@ -29,6 +29,17 @@ const problemsSlice = createSlice({
             state.error = payload;
             state.response = payload;
             state.success = false;
+        },
+        [createProblem.pending]: (state) => {
+            state.loading = true;
+        },
+        [createProblem.fulfilled]: (state, { payload }) => {
+            state.loading = false;
+            state.success = true;
+        },
+        [createProblem.rejected]: (state, { payload }) => {
+            state.loading = false;
+            state.error = payload;
         }
     }
 });

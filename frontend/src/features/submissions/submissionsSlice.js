@@ -38,7 +38,7 @@ const submissionsSlice = createSlice({
             state.loading = false;
             state.success = true;
         },
-        [createSubmission.fulfilled]: (state, { payload }) => {
+        [createSubmission.rejected]: (state, { payload }) => {
             state.loading = false;
             state.error = payload;
         }

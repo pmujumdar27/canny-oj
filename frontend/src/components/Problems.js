@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProblems } from '../features/problems/problemsActions';
 import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
+import CreateProblem from './CreateProblem';
 
 
 const Problems = () => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { createSubmission } from '../features/submissions/submissionsActions';
 
 const CreateSubmission = (id) => {
@@ -8,6 +9,8 @@ const CreateSubmission = (id) => {
     const { register, handleSubmit } = useForm();
 
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const submitForm = (data) => {
         const payload = {
@@ -17,6 +20,7 @@ const CreateSubmission = (id) => {
         }
         console.log("Payload: ", payload);
         dispatch(createSubmission(payload));
+        navigate('/submissions');
     }
 
     return (
@@ -27,6 +31,7 @@ const CreateSubmission = (id) => {
                 <label htmlFor='language'>language</label>
                 <select
                     {...register('language')}
+                    required
                 >
                     <option value="Cpp">C++</option>
                     <option value="python">Python</option>
@@ -35,6 +40,7 @@ const CreateSubmission = (id) => {
                     {...register('file')}
                     name='file'
                     type='file'
+                    required
                 />
                 <button type='submit' className='button'>
                     Submit

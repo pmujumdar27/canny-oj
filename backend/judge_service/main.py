@@ -28,19 +28,26 @@ def connect():
         print(db_version)
         # -----------------------------------------------------------------------
 
-        urlnm = "http://localhost:3000/users/login"
+        urlnm = "http://localhost:8000/users/login"
         data = {
             "email": os.environ.get('judge_email'),
             "password": os.environ.get('judge_password')
         }
         r = requests.post(url=urlnm, json = data)
         resp = r.json()
-        token = resp['tokens']['accessToken']
+        print("Login response: ", resp)
+        token = resp['data']['accessToken']
 
-        while(True):
+        # return
+
+        while(1):
             time.sleep(1)
 
             judge_next = get_judge_next(cur)
+
+            print("Judge next: ", judge_next)
+
+            # return
 
             if len(judge_next) < 1:
                 continue
@@ -62,7 +69,7 @@ def connect():
                     "Authorization": f"Bearer {token}"
                 }
 
-            prob_resp = requests.get(url=f"http://localhost:3000/problems/{submission['problem_id']}/tests", params=None, headers=headers)
+            prob_resp = requests.get(url=f"http://localhost:8000/problems/{submission['problem_id']}/tests", params=None, headers=headers)
             prob_data = prob_resp.json()['data']
             test_dir = "../web_api/test_io"
             submission_dir = "../web_api/"

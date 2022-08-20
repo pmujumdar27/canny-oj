@@ -46,8 +46,6 @@ export const createSubmission = createAsyncThunk(
                 },
             }
 
-            console.log("Arg: ", arg);
-
             const { data } = await axios.post(
                 API_URL + '/submit',
                 arg,
