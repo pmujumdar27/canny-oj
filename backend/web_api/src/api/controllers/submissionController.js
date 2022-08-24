@@ -3,6 +3,7 @@ const objectUtils = require('../helpers/object');
 const jwtUtils = require('../helpers/jwtHelpers');
 const fs = require('fs/promises');
 const User = require('../models/user');
+const Problem = require('../models/problem');
 
 async function check_post_request(req) {
     const required_keys = ['language', 'problem_id'];
@@ -23,7 +24,26 @@ async function add_submission(req, res) {
                 language: req.body.language,
                 solution_file: req.file.path
             };
-            await Submission.query().insert(submissionObj);
+
+            let resp = await Submission.query().insert(submissionObj);
+
+            const problem_obj = await Problem.query().findById(resp.problem_id);
+
+            resp = {
+                ...resp,
+                problem_obj: problem_obj
+            }
+
+            // ============== Send submission details to RabbitMQ for judge service to consume ====================
+            const channel = req.app.get('channel');
+            await channel.assertQueue('submissions');
+            await channel.sendToQueue(
+                'submissions',
+                Buffer.from(JSON.stringify(resp))
+            )
+            console.log('[INFO] Data sent to RabbitMQ');
+            // ============================== END ===============================
+
             res.status(201).json({
                 status: 'success',
                 description: submissionObj
