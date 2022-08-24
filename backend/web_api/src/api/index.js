@@ -46,9 +46,3 @@ init().then(
         }
     }
 )
-
-
-// app.listen(port, (err) => {
-//     if(err) console.log('[ERROR] Error in listening!');
-//     else console.log(`[INFO] Listening on localhost:${port}`);
-// });
