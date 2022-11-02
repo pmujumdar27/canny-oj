@@ -17,11 +17,13 @@ connect();
 async function connect() {
     try {
         const connectionString = process.env.CONNECTION_STRING;
-
+        
+        console.log("Starting...");
         const client = new Client({
             connectionString,
         })
-        client.connect()
+        await client.connect()
+        console.log("Connected!");
 
         const amqpServer = 'amqp://localhost:5672';
         connection = await amqp.connect(amqpServer);

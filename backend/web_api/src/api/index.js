@@ -2,7 +2,7 @@ const express = require('express');
 const userRouter = require('./routes/users');
 const problemRouter = require('./routes/problems');
 const submissionRouter = require('./routes/submissions');
-const database = require('../../config/DatabaseConfig');
+const dbConfig = require('../../config/DatabaseConfig');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -15,6 +15,9 @@ async function init() {
     app.use(morgan('dev'));
     
     app.use(cors());
+
+    console.log("DB Environment: ", dbConfig.dbEnv);
+    console.log("Database: ", dbConfig.database);
 
     const { connection, channel } = await connect();
 

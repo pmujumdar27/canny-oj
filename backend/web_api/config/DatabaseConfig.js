@@ -3,10 +3,23 @@ const Knex = require('knex');
 
 require('dotenv').config();
 
-const knexConfig = require('../knexfile')[process.env.NODE_ENV || 'development'];
+let database;
+let dbEnv;
 
-const database = Knex(knexConfig);
+try {
+    dbEnv = process.env.NODE_ENV || 'development';
+    
+    const knexConfig = require('../knexfile')[dbEnv];
+    
+    database = Knex(knexConfig);
+    
+    Model.knex(database);
+} catch (ex) {
+    console.log("[Error] DB Config Error: ", ex.stack);
+}
 
-Model.knex(database);
 
-module.exports = database;
+module.exports = {
+    dbEnv,
+    database
+};
